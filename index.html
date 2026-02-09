@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Chocolate Day Guddy ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      width: 90%;
+      max-width: 420px;
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      color: #d6336c;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #444;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      height: 130px;
+    }
+
+    button {
+      padding: 12px 26px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: absolute;
+    }
+
+    #yes {
+      background: #d6336c;
+      color: white;
+      left: 30px;
+    }
+
+    #no {
+      background: #adb5bd;
+      color: white;
+      right: 30px;
+    }
+
+    #message {
+      font-size: 20px;
+      color: #d6336c;
+      margin-top: 20px;
+      display: none;
+      animation: pop 0.8s ease;
+      line-height: 1.4;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 22px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Romantic background music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/27/audio_9c7c91a2e4.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <h1>Happy Chocolate Day 🍫❤️</h1>
+    <p>My lovely & pretty wife <b>Guddy</b> 💖</p>
+    <p>Just one question for you 😌</p>
+    <p><b>Do you want a chocolate?</b></p>
+
+    <div class="buttons">
+      <button id="yes">Yes 😍</button>
+      <button id="no">No 🙄</button>
+    </div>
+
+    <div id="message">
+      Hehehe 😏🍫<br><br>
+      I owe you <b>unlimited chocolates</b>…<br>
+      but you’re on a diet 🤭<br><br>
+      Just say <b>YES</b>,<br>
+      I’ll give you a <b>Maha Lacto chocolate</b> 🍫❤️
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const message = document.getElementById("message");
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 260;
+      const y = Math.random() * 90;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block";
+      noBtn.style.display = "none";
+      yesBtn.style.display = "none";
+      createHearts();
+    });
+
+    function createHearts() {
+      for (let i = 0; i < 35; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+  </script>
+
+</body>
+</html>
