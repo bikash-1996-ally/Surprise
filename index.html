@@ -44,9 +44,12 @@
     }
 
     .buttons {
-      margin-top: 30px;
+      margin-top: 25px;
       position: relative;
-      height: 130px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
     button {
@@ -55,29 +58,30 @@
       border-radius: 30px;
       border: none;
       cursor: pointer;
-      transition: 0.3s;
-      position: absolute;
+      transition: 0.3s ease;
     }
 
-    #yes {
+    #yes, #finalYes {
       background: #d6336c;
       color: white;
-      left: 30px;
     }
 
-    #no {
+    #no, #finalNo {
       background: #adb5bd;
       color: white;
-      right: 30px;
     }
 
     #message {
-      font-size: 20px;
+      font-size: 18px;
       color: #d6336c;
       margin-top: 20px;
       display: none;
-      animation: pop 0.8s ease;
       line-height: 1.4;
+    }
+
+    #plea {
+      margin-top: 15px;
+      font-size: 18px;
     }
 
     .heart {
@@ -103,7 +107,7 @@
   <div class="card">
     <h1>Happy Chocolate Day 🍫❤️</h1>
     <p>My lovely & pretty wife <b>Guddy</b> 💖</p>
-    <p>Just one question for you 😌</p>
+    <p>Just one sweet question for you 😌</p>
     <p><b>Do you want a chocolate?</b></p>
 
     <div class="buttons">
@@ -117,6 +121,15 @@
       but you’re on a diet 🤭<br><br>
       Just say <b>YES</b>,<br>
       I’ll give you a <b>Maha Lacto chocolate</b> 🍫❤️
+
+      <div class="buttons" id="finalButtons">
+        <button id="finalYes">YES 😍</button>
+        <button id="finalNo">NO 🙄</button>
+      </div>
+
+      <div id="plea" style="display:none;">
+        Pleaseeeee pookieee 🥺😭💔
+      </div>
     </div>
   </div>
 
@@ -126,10 +139,9 @@
     const message = document.getElementById("message");
 
     noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 260;
-      const y = Math.random() * 90;
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+      const x = Math.random() * 200;
+      const y = Math.random() * 60;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
 
     yesBtn.addEventListener("click", () => {
@@ -137,17 +149,56 @@
       noBtn.style.display = "none";
       yesBtn.style.display = "none";
       createHearts();
+      finalStage();
     });
 
+    function finalStage() {
+      const finalYes = document.getElementById("finalYes");
+      const finalNo = document.getElementById("finalNo");
+      const plea = document.getElementById("plea");
+
+      let yesScale = 1;
+      let noScale = 1;
+      let cryCount = 1;
+
+      finalNo.addEventListener("click", () => {
+        plea.style.display = "block";
+        plea.innerHTML = "Pleaseeeee pookieee 🥺😭".repeat(cryCount);
+
+        yesScale += 0.35;
+        noScale -= 0.2;
+
+        finalYes.style.transform = `scale(${yesScale})`;
+        finalNo.style.transform = `scale(${noScale})`;
+
+        cryCount++;
+
+        if (noScale <= 0.3) {
+          finalNo.style.display = "none";
+          plea.innerHTML = "Only YES left now pookieee 🥺❤️";
+        }
+      });
+
+      finalYes.addEventListener("click", () => {
+        message.innerHTML = `
+          💖 YAYYYYY 😍🍫💖<br><br>
+          Guddy, you are officially getting your<br>
+          <b>Maha Lacto Chocolate</b> 🍫😌<br><br>
+          Unlimited chocolates (after diet 😜)<br>
+          Unlimited love forever ❤️😭
+        `;
+        createHearts();
+      });
+    }
+
     function createHearts() {
-      for (let i = 0; i < 35; i++) {
+      for (let i = 0; i < 40; i++) {
         const heart = document.createElement("div");
         heart.classList.add("heart");
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 5000);
       }
     }
